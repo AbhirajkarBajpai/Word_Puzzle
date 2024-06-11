@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
             cell.addEventListener("mouseover", (event) => handleMouseOver(event, row, col, cell));
             cell.addEventListener("mouseup", handleMouseUp);
             cell.addEventListener("touchstart", (event) => handleTouchStart(event, row, col, cell));
-            cell.addEventListener("touchmove", (event) => handleTouchMove(event, row, col, cell));
+            cell.addEventListener("touchmove", (event) => handleTouchMove(event));
             cell.addEventListener("touchend", handleTouchEnd);
             gridElement.appendChild(cell);
         }
@@ -90,15 +90,17 @@ document.addEventListener("DOMContentLoaded", () => {
         showCircle(cell);  // Show circle on first touch
     }
 
-    function handleTouchMove(event, row, col, cell) {
+    function handleTouchMove(event) {
         event.preventDefault();  // Prevent default touch behavior
-        const touch = event.touches[0];
-        const element = document.elementFromPoint(touch.clientX, touch.clientY);
-        if (element && element.dataset && element.dataset.row && element.dataset.col) {
-            const row = parseInt(element.dataset.row);
-            const col = parseInt(element.dataset.col);
-            handleCellClick(row, col, element);
-            showCircle(element);  // Show circle while dragging
+        if (isTouching) {
+            const touch = event.touches[0];
+            const element = document.elementFromPoint(touch.clientX, touch.clientY);
+            if (element && element.dataset.row && element.dataset.col) {
+                const row = parseInt(element.dataset.row);
+                const col = parseInt(element.dataset.col);
+                handleCellClick(row, col, element);
+                showCircle(element);  // Show circle while dragging
+            }
         }
     }
 
@@ -161,9 +163,6 @@ document.addEventListener("DOMContentLoaded", () => {
             resetSelection();
         }
     }
-
-
-
 
     function isAdjacent(lastPosition, currentPosition) {
         const [lastRow, lastCol] = lastPosition.split(',').map(Number);
