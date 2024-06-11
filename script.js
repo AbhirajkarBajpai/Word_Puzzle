@@ -11,6 +11,7 @@ let selectedPositions = [];
 let score = 0;
 const minWordLength = 4;
 let isMouseDown = false;
+let isTouching = false;
 let gameCompleted = false;  // Flag to track game completion status
 const lines = [];
 const maxScore = wordsList.reduce((acc, word) => acc + word.length, 0); // Maximum possible score
@@ -37,6 +38,9 @@ document.addEventListener("DOMContentLoaded", () => {
             cell.addEventListener("mousedown", (event) => handleMouseDown(event, row, col, cell));
             cell.addEventListener("mouseover", (event) => handleMouseOver(event, row, col, cell));
             cell.addEventListener("mouseup", handleMouseUp);
+            cell.addEventListener("touchstart", (event) => handleTouchStart(event, row, col, cell));
+            cell.addEventListener("touchmove", (event) => handleTouchMove(event, row, col, cell));
+            cell.addEventListener("touchend", handleTouchEnd);
             gridElement.appendChild(cell);
         }
     }
@@ -71,6 +75,57 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         isMouseDown = false;
         hideCircle();  // Hide circle on mouse up
+        processSelection();
+    }
+
+    function handleTouchStart(event, row, col, cell) {
+        event.preventDefault();  // Prevent default touch behavior
+        if (gameCompleted) {
+            alert("Game completed! Restart to play again.");
+            return;
+        }
+        isTouching = true;
+        resetSelection();
+        handleCellClick(row, col, cell);
+        showCircle(cell);  // Show circle on first touch
+    }
+
+    function handleTouchMove(event, row, col, cell) {
+        event.preventDefault();  // Prevent default touch behavior
+        if (isTouching) {
+            handleCellClick(row, col, cell);
+            showCircle(cell);  // Show circle while dragging
+        }
+    }
+
+    function handleTouchEnd() {
+        if (gameCompleted) {
+            return;
+        }
+        isTouching = false;
+        hideCircle();  // Hide circle on touch end
+        processSelection();
+    }
+
+    function handleCellClick(row, col, cell) {
+        const position = `${row},${col}`;
+        const lastPosition = selectedPositions[selectedPositions.length - 1];
+
+        if (selectedPositions.length > 0 && !isAdjacent(lastPosition, position)) {
+            resetSelection();
+        }
+
+        if (!selectedPositions.includes(position)) {
+            selectedLetters.push(cell.textContent);
+            selectedPositions.push(position);
+            cell.classList.add("selected");
+            if (selectedPositions.length > 1) {
+                drawLine(lastPosition, position);
+            }
+        }
+    }
+
+    function processSelection() {
         if (selectedLetters.length >= minWordLength) {
             const word = selectedLetters.join('');
             if (validateWord(word)) {
@@ -100,24 +155,6 @@ document.addEventListener("DOMContentLoaded", () => {
             messageElement.textContent = "Invalid word!";
             messageElement.classList.add("error");
             resetSelection();
-        }
-    }
-
-    function handleCellClick(row, col, cell) {
-        const position = `${row},${col}`;
-        const lastPosition = selectedPositions[selectedPositions.length - 1];
-
-        if (selectedPositions.length > 0 && !isAdjacent(lastPosition, position)) {
-            resetSelection();
-        }
-
-        if (!selectedPositions.includes(position)) {
-            selectedLetters.push(cell.textContent);
-            selectedPositions.push(position);
-            cell.classList.add("selected");
-            if (selectedPositions.length > 1) {
-                drawLine(lastPosition, position);
-            }
         }
     }
 
