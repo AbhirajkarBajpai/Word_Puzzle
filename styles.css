@@ -1,0 +1,114 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    margin: 0;
+}
+
+.game-container {
+    text-align: center;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(5, 4rem);
+    grid-gap: 1rem;
+    margin: 20px auto;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow to grid */
+}
+
+.grid div {
+    width: 4rem;
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #bacadf;
+    border: 1px solid #cccccc;
+    border-radius: 10%;
+    cursor: pointer;
+    font-size: 24px;
+    position: relative;
+    z-index: 1;
+    user-select: none; /* Disable text selection */
+    transition: transform 0.2s; /* Add transition for pop effect */
+}
+
+.grid div.selected {
+    background-color: #f8e2a2;
+    color: #ffffff;
+    transform: scale(1.1); /* Slightly pop the grid cell */
+}
+
+.line {
+    position: absolute;
+    background-color: #ffd968;
+    height: .7rem;
+    z-index: 0;
+    transform-origin: 0 0;
+}
+
+.circle {
+    width: 2rem;
+    height: 2rem;
+    background-color: pink;
+    border-radius: 50%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black; /* Letter color */
+    z-index: 2; /* Ensure circle is above the line */
+}
+
+.word-list {
+    margin: 20px 0;
+}
+
+.word-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.score-board {
+    margin: 20px 0;
+}
+
+.score-board .score-bar-container {
+    width: 100%;
+    height: 20px;
+    background-color: #000000;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.score-board .score-bar {
+    height: 100%;
+    background: linear-gradient(to right, red 0%, black 100%);
+    width: 0;
+}
+
+.message {
+    color: green;
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.error {
+    color: red;
+}
+
+#previous-found-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+#no-words {
+    color: #888888;
+}

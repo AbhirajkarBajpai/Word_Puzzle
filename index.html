@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Finding Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>Word Finding Game</h1>
+        <div class="score-board">
+            <div class="score-bar-container">
+                <div class="score-bar" id="score-bar"></div>
+            </div>
+            <p><b>Score: </b><span id="score">0</span></p>
+        </div>
+        <div class="grid" id="grid"></div>
+        <div class="word-list" id="word-list">
+            <h3>Words Found:</h3>
+            <p id="no-words">No Words Found Yet</p>
+            <ul id="words"></ul>
+        </div>
+        <div class="message" id="message"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
