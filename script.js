@@ -92,9 +92,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function handleTouchMove(event, row, col, cell) {
         event.preventDefault();  // Prevent default touch behavior
-        if (isTouching) {
-            handleCellClick(row, col, cell);
-            showCircle(cell);  // Show circle while dragging
+        const touch = event.touches[0];
+        const element = document.elementFromPoint(touch.clientX, touch.clientY);
+        if (element && element.dataset && element.dataset.row && element.dataset.col) {
+            const row = parseInt(element.dataset.row);
+            const col = parseInt(element.dataset.col);
+            handleCellClick(row, col, element);
+            showCircle(element);  // Show circle while dragging
         }
     }
 
@@ -157,6 +161,9 @@ document.addEventListener("DOMContentLoaded", () => {
             resetSelection();
         }
     }
+
+
+
 
     function isAdjacent(lastPosition, currentPosition) {
         const [lastRow, lastCol] = lastPosition.split(',').map(Number);
