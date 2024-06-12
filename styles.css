@@ -18,7 +18,6 @@ body {
     grid-gap: 1rem;
     margin: 20px auto;
     position: relative;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow to grid */
 }
 
 .grid div {
