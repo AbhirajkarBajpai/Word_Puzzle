@@ -1,4 +1,4 @@
-const wordsList = ["MID","GAME", "GRID", "TABLE", "PLAY", "LOSE", "DOES", "LOSER","FEAR", "BEAR","FEES","TRIM","RIDE"];
+const wordsList = ["MID","GAME", "GRID", "TABLE", "PLAY", "LOSE", "DOES", "LOSER","FEAR", "BEAR","FEES","TRIM","RIDE"]; // Example word list
 const gridLetters = [
     ['G', 'A', 'I', 'K', 'L'],
     ['T', 'R', 'M', 'D', 'O'],
@@ -14,16 +14,16 @@ let isMouseDown = false;
 let isTouching = false;
 let gameCompleted = false;  // Flag to track game completion status
 const lines = [];
+let wordsFounded=[];
 const maxScore = wordsList.reduce((acc, word) => acc + word.length, 0); // Maximum possible score
 let circleElement;
 
 document.addEventListener("DOMContentLoaded", () => {
     const gridElement = document.getElementById("grid");
-    const wordsElement = document.getElementById("words");
     const noWordsElement = document.getElementById("no-words");
     const scoreElement = document.getElementById("score");
     const messageElement = document.getElementById("message");
-    const scoreBarElement = document.getElementById("score-bar");
+    
 
     // Initialize grid
     for (let row = 0; row < gridLetters.length; row++) {
@@ -128,33 +128,37 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function processSelection() {
+    async function processSelection() {
         if (selectedLetters.length >= minWordLength) {
             const word = selectedLetters.join('');
-            if (validateWord(word)) {
-                if (!wordsElement.textContent.includes(word)) {
-                    const wordItem = document.createElement("li");
-                    wordItem.textContent = word;
-                    wordsElement.appendChild(wordItem);
+            try {
+                const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
+                const data = await response.json();
+                if (data.title === "No Definitions Found") {
+                    messageElement.textContent = "Invalid Word!";
+                    messageElement.style.color = "red";
+                    resetSelection();
+                } else {
+                    if (!wordsFounded.includes(word)) {
+                        wordsFounded.push(word);
                     score += word.length;
                     scoreElement.textContent = score;
-                    updateScoreBar();
+                    // updateScoreBar();
                     messageElement.textContent = "Good Job!";
                     messageElement.style.color="green";
-                    noWordsElement.style.display = "none"; // Hide the "No Words Found Yet" message
-                } else {
-                    alert("Word already found!");
+                    noWordsElement.style.display = "none"
+                    } else {
+                        alert("Word already found!");
+                    }
+                    resetSelection();
                 }
-                resetSelection();
-                checkCompletion();
-            } else {
-                messageElement.textContent = "Invalid word!";
-                messageElement.style.color="red";
+            } catch (error) {
+                console.error('Something wrong Happened', error);
                 resetSelection();
             }
         } else {
             messageElement.textContent = "Invalid word!";
-            messageElement.classList.add("error");
+            messageElement.style.color = "red";
             resetSelection();
         }
     }
@@ -223,20 +227,4 @@ document.addEventListener("DOMContentLoaded", () => {
     function validateWord(word) {
         return wordsList.includes(word);
     }
-
-    function updateScoreBar() {
-        const scorePercentage = (score / maxScore) * 100;
-        scoreBarElement.style.width = `${scorePercentage}%`;
-        scoreBarElement.style.background = `linear-gradient(to right, #ADD899 ${scorePercentage}%, #78ABA8 100%)`;
-    }
-
-    function checkCompletion() {
-        if (wordsElement.children.length === wordsList.length) {
-            messageElement.textContent = "You completed the game!";
-            gameCompleted = true;  // Mark the game as completed
-        }
-    }
-
-    // Periodically check for game completion
-    setInterval(checkCompletion, 1000);
 });
