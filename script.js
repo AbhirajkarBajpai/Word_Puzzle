@@ -23,9 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const noWordsElement = document.getElementById("no-words");
     const scoreElement = document.getElementById("score");
     const messageElement = document.getElementById("message");
-    const previousFoundMessageElement = document.createElement("div");
-    previousFoundMessageElement.id = "previous-found-message";
-    document.body.appendChild(previousFoundMessageElement);
     const scoreBarElement = document.getElementById("score-bar");
 
     // Initialize grid
@@ -145,10 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     messageElement.textContent = "Good Job!";
                     noWordsElement.style.display = "none"; // Hide the "No Words Found Yet" message
                 } else {
-                    previousFoundMessageElement.textContent = "Word already found!";
-                    setTimeout(() => {
-                        previousFoundMessageElement.textContent = "";
-                    }, 2000);
+                    alert("Word already found!");
                 }
                 resetSelection();
                 checkCompletion();
