@@ -140,6 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     scoreElement.textContent = score;
                     updateScoreBar();
                     messageElement.textContent = "Good Job!";
+                    messageElement.style.color="green";
                     noWordsElement.style.display = "none"; // Hide the "No Words Found Yet" message
                 } else {
                     alert("Word already found!");
@@ -148,7 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 checkCompletion();
             } else {
                 messageElement.textContent = "Invalid word!";
-                messageElement.classList.add("error");
+                messageElement.style.color="red";
                 resetSelection();
             }
         } else {
