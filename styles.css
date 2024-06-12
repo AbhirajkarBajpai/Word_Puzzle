@@ -73,6 +73,7 @@ h1, h3{
 
 .word-list ul {
     list-style: none;
+    color: #5e4104;
     padding: 0;
 }
 
@@ -101,9 +102,6 @@ h1, h3{
     margin-top: 20px;
 }
 
-.error {
-    color: red;
-}
 
 
 #no-words {
