@@ -1,4 +1,4 @@
-const wordsList = ["MID","GAME", "GRID", "TABLE", "PLAY", "LOSE", "DOES", "LOSER","FEAR"]; // Example word list
+const wordsList = ["MID","GAME", "GRID", "TABLE", "PLAY", "LOSE", "DOES", "LOSER","FEAR", "BEAR","FEES","TRIM","RIDE"];
 const gridLetters = [
     ['G', 'A', 'I', 'K', 'L'],
     ['T', 'R', 'M', 'D', 'O'],
