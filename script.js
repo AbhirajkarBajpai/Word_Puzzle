@@ -1,4 +1,4 @@
-const wordsList = ["GAME", "GRID", "TABLE", "PLAY", "LOSE"]; // Example word list
+const wordsList = ["MID","GAME", "GRID", "TABLE", "PLAY", "LOSE", "DOES", "LOSER","FEAR"]; // Example word list
 const gridLetters = [
     ['G', 'A', 'I', 'K', 'L'],
     ['T', 'R', 'M', 'D', 'O'],
@@ -9,7 +9,7 @@ const gridLetters = [
 let selectedLetters = [];
 let selectedPositions = [];
 let score = 0;
-const minWordLength = 4;
+const minWordLength = 3;
 let isMouseDown = false;
 let isTouching = false;
 let gameCompleted = false;  // Flag to track game completion status
@@ -226,7 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function updateScoreBar() {
         const scorePercentage = (score / maxScore) * 100;
         scoreBarElement.style.width = `${scorePercentage}%`;
-        scoreBarElement.style.background = `linear-gradient(to right, red ${scorePercentage}%, black 100%)`;
+        scoreBarElement.style.background = `linear-gradient(to right, #ADD899 ${scorePercentage}%, #78ABA8 100%)`;
     }
 
     function checkCompletion() {
