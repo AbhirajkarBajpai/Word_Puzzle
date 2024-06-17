@@ -21,6 +21,240 @@ h1, h3{
     grid-gap: 1rem;
     margin: 20px auto;
     position: relative;
+    font-family: arial;
+}
+.grid div{
+    width: 4rem;
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #bacadf;
+    border: 1px solid #cccccc;
+    border-radius: 10%;
+    cursor: pointer;
+    font-size: 2rem;
+    position: relative;
+    z-index: 1;
+    user-select: none; /* Disable text selection */
+    transition: transform 0.2s; /* Add transition for pop effect */
+    transition: background-color 0.2s ease;
+}
+.symbols {
+    position: absolute;
+    bottom: -1rem;
+    right: 1px;
+    font-size: 0.8rem; 
+    color: red; 
+  }
+
+.grid div.selected{
+    background-color: blue;
+    color: #ffffff;
+    transform: scale(1.1); /* Slightly pop the grid cell */
+    transition: background-color 0.2s ease;
+}
+
+.grid div.correct{
+    background-color: green;
+    color: #ffffff;
+    transform: scale(1.1); /* Slightly pop the grid cell */
+    transition: background-color 0.2s ease;
+}
+.grid div.wrong{
+    background-color: red;
+    color: #ffffff;
+    transform: scale(1.1); /* Slightly pop the grid cell */
+    transition: background-color 0.2s ease;
+}
+.grid div.again{
+    background-color: yellow;
+    color: #ffffff;
+    transform: scale(1.1); /* Slightly pop the grid cell */
+    transition: background-color 0.2s ease;
+}
+
+#temp{
+    height: 1rem;
+    transition: text 0.5;
+}
+
+.line {
+    position: absolute;
+    background-color: blue;
+    height: .7rem;
+    z-index: 0;
+    transform-origin: 0 0;
+}
+
+/* .circle {
+    width: 2rem;
+    height: 2rem;
+    background-color: pink;
+    border-radius: 50%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black; 
+    z-index: 2; 
+} */
+
+.word-list {
+    margin: 20px 0;
+}
+
+.word-list ul {
+    list-style: none;
+    color: #5e4104;
+    padding: 0;
+}
+
+.score-board {
+    margin: 20px 0;
+}
+
+.score-board .score-bar-container {
+    width: 100%;
+    height: 20px;
+    background-color: #7ca9a6;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.score-board .score-bar {
+    height: 100%;
+    background: linear-gradient(to right,#ADD899 0%, #80b4b0 100%);
+    width: 0;
+}
+
+.message {
+    height: 2rem;
+    color: blue;
+    font-size: 1rem;
+}
+
+#timer{
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2rem;
+    background-color: #4caf50;
+    color: white;
+    border: solid rgb(157, 228, 95);
+    border-radius: 5px;
+    text-align: center;
+}
+
+#no-words {
+    color: #888888;
+}
+
+/* Pop-out message styles */
+.pop-out-message {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #4caf50;
+    color: white;
+    font-size: 24px;
+    border-radius: 5px;
+    text-align: center;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+  }
+  
+  /* Show class to trigger the fade effect */
+  .pop-out-message.show {
+    display: block;
+    opacity: 1;
+  }
+  
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .grid {
+        margin-top: 6rem;
+        grid-template-columns: repeat(5, 4rem);
+        grid-gap: 0.8rem;
+    }
+
+    .grid div {
+        width: 4rem;
+        height: 4rem;
+        font-size: 1.8rem;
+    }
+
+    .circle {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+
+    .score-board .score-bar-container {
+        height: 15px;
+    }
+
+    .message {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .grid {
+        margin-top: 6rem;
+        grid-template-columns: repeat(5, 4rem);
+        grid-gap: 0.6rem;
+    }
+
+    .grid div {
+        width: 4rem;
+        height: 4rem;
+        font-size: 2rem;
+    }
+
+    /* .circle {
+        width: 1.2rem;
+        height: 1.2rem;
+    } */
+
+    .score-board .score-bar-container {
+        height: 10px;
+    }
+
+    .message {
+        font-size: 14px;
+    }
+}
+
+/* body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #d9b6c5;
+    margin: 0;
+}
+
+.game-container {
+    text-align: center;
+}
+h1, h3{
+    color: #64ac28;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(5, 4rem);
+    grid-gap: 1rem;
+    margin: 20px auto;
+    position: relative;
 }
 
 .grid div {
@@ -159,4 +393,4 @@ h1, h3{
     .message {
         font-size: 14px;
     }
-}
+} */
