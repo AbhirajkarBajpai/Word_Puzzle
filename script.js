@@ -153,7 +153,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const cellToDeselect = document.querySelector(
           `.grid div[data-row="${r}"][data-col="${c}"]`
         );
-        cellToDeselect.classList.remove("selected");
+        cellToDeselect.classList.remove("selected"); 
+        const a= cellToDeselect.querySelector("p.symbols");
+        a.style.color="";
       }
 
       selectedPositions = selectedPositions.slice(0, index + 1);
